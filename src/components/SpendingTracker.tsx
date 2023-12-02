@@ -1,20 +1,34 @@
-import { AirtimeData } from "../assets/spending-tracker/AirtimeData";
+import {
+  AirtimeData,
+  Flex,
+  Food,
+  Others,
+  Fuel,
+} from "../assets/spending-tracker";
 
 export const SpendingTracker = () => {
   return (
-    <div className="bg-white p-4 m-4 rounded-lg ">
+    <div className="bg-white p-4 m-4 rounded-lg flex flex-col gap-10 ">
       <h2> How are you spending your money?</h2>
-      <div>
+      <div className="flex flex-col gap-3">
         {trackItems.map((item, index) => (
-          <div key={index}>
+          <div className="flex  gap-10 items-center" key={index}>
             {getIcon(item.name)}
-            <div>
-              <p>{item.name}</p>
-              <p>{item.percentage}</p>
+            <div className=" w-[250px]">
+              <p className="font-semibold">{item.name}</p>
+              <div className="flex items-center gap-3 ">
+                <div
+                  className="h-2 rounded-lg"
+                  style={{
+                    width: `calc(${item.percentage} + 50px)`,
+                    background: getBg(item.name),
+                  }}
+                />
+                <p>{item.percentage}</p>
+              </div>
             </div>
-            <div>
-              <p>{item.amount}</p>
-            </div>
+
+            <p>{item.amount}</p>
           </div>
         ))}
       </div>
@@ -26,25 +40,62 @@ const getIcon = (name: string) => {
   switch (name) {
     case "Airtime/Data":
       return <AirtimeData />;
+    case "Food":
+      return <Food />;
+    case "Fuel":
+      return <Fuel />;
+    case "Flex":
+      return <Flex />;
+    case "Others":
+      return <Others />;
     default:
       return <AirtimeData />;
   }
 };
 
+const getBg = (name: string) => {
+  switch (name) {
+    case "Airtime/Data":
+      return "#9747FF ";
+
+    case "Food":
+      return "#E62C46";
+
+    case "Fuel":
+      return "#61BC51";
+
+    case "Flex":
+      return "#FFC400";
+    case "Others":
+      return "#745125";
+    default:
+      return "#F4F6FF";
+  }
+};
 const trackItems = [
   {
     name: "Airtime/Data",
     percentage: "34.3%",
-    amount: "N114,000.74",
+    amount: "N103,270.74",
   },
   {
-    name: "Airtime/Data",
-    percentage: "34.3%",
-    amount: "N114,000.74",
+    name: "Food",
+    percentage: "29.14%",
+    amount: "N74,000.74",
   },
   {
-    name: "Airtime/Data",
-    percentage: "34.3%",
-    amount: "N114,000.74",
+    name: "Fuel",
+    percentage: "22.5%",
+    amount: "N74,000.74",
+  },
+  {
+    name: "Flex",
+    percentage: "13%",
+    amount: "N37,000",
+  },
+  {
+    name: "Others",
+    percentage: "2.5%",
+    amount: "N14,000.53",
   },
 ];
