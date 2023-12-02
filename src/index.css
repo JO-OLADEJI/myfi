@@ -7,3 +7,28 @@
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
+.donut-chart {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #f00 0% 20%,
+    /* Red */ #ff0 20% 40%,
+    /* Yellow */ #0f0 40% 60%,
+    /* Green */ #00f 60% 80%,
+    /* Blue */ #f0f 80% 100% /* Purple */
+  );
+}
+
+.donut-chart::before {
+  content: "";
+  position: absolute;
+  width: 120px; /* Adjust the inner circle size as needed */
+  height: 120px; /* Adjust the inner circle size as needed */
+  background-color: white; /* Color of the inner circle */
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

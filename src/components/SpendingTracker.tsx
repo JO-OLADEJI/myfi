@@ -17,6 +17,12 @@ export const SpendingTracker = () => {
         <h1 className="text-primary font-bold text-2xl">Spending Tracker</h1>
 
         <Select items={["Mar 2023"]} />
+
+        <div className="donut-chart flex justify-center items-center">
+          <div className="z-10">
+            <img src="/star.svg" />
+          </div>
+        </div>
       </div>
       <div className="flex flex-col gap-3">
         {trackItems.map((item, index) => (
