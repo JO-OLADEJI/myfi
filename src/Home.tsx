@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Web5Context } from "./contexts/web5";
+import { Link } from "react-router-dom";
 
 const Home = (): JSX.Element => {
   const { did } = useContext(Web5Context);
@@ -24,8 +25,9 @@ const Home = (): JSX.Element => {
           copy
         </button>
       </p>
+      <Link to="/dashboard">Dashboard</Link>
     </div>
   );
-}
+};
 
-export default Home
+export default Home;
