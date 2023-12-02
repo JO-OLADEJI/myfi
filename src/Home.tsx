@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Web5Context } from "./contexts/web5";
 
-const App = (): JSX.Element => {
+const Home = (): JSX.Element => {
   const { did } = useContext(Web5Context);
 
   return (
@@ -28,4 +28,4 @@ const App = (): JSX.Element => {
   );
 }
 
-export default App
+export default Home
