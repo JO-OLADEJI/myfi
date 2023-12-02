@@ -18,9 +18,23 @@ export const SpendingTracker = () => {
 
         <Select items={["Mar 2023"]} />
 
-        <div className="donut-chart flex justify-center items-center">
-          <div className="z-10">
-            <img src="/star.svg" />
+        <div
+          style={{
+            background: `conic-gradient(
+                  #9747FF 0% 30%,
+                  #61BC51 30% 40%,
+                  #745125 40% 60%,
+                 #E62C46 60% 80%,
+                 #FFC400 80% 100%
+              )`,
+          }}
+          className=" rounded-full  w-[200px] h-[200px] flex items-center justify-center bg-red-100  "
+        >
+          <div className="bg-white p-8 rounded-full">
+            <img
+              className="bg-white rounded-full shadow-lg p-3 px-4"
+              src="/star.svg"
+            />
           </div>
         </div>
       </div>
@@ -70,7 +84,7 @@ const getIcon = (name: string) => {
 const getBg = (name: string) => {
   switch (name) {
     case "Airtime/Data":
-      return "#9747FF ";
+      return "#9747FF";
 
     case "Food":
       return "#E62C46";

@@ -1,6 +1,6 @@
-import { FaPlus } from "react-icons/fa";
 import { Button } from "./ui/Button";
 import { Uba, Kuda } from "@/assets/banks-logo";
+import { Plus } from "@/assets/banks-connected";
 
 export const ConnectBanks = () => {
   return (
@@ -11,7 +11,7 @@ export const ConnectBanks = () => {
       <div className="flex gap-2">
         <div className=" flex flex-col items-center gap-2">
           <div className=" flex items-center justify-center  p-7 rounded-full border border-dashed border-blue-700">
-            <FaPlus />
+            <Plus />
           </div>
           <Button className="text-blue-700 text-base font-normal ">Add</Button>
         </div>

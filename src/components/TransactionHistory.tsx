@@ -6,7 +6,7 @@ export const TransactionHistory = () => {
       <p className=" text-neutral-400 text-lg font-normal ">
         Transaction History
       </p>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-6 overflow-auto max-h-[24vh] scroll-bar">
         {transactions.map((transaction, index) => (
           <div key={index} className="flex">
             <div className="flex flex-col">
@@ -53,6 +53,24 @@ const transactions = [
     time: "10:06 AM",
     amount: "15,000",
     type: "DEBIT",
+    description: "Food Money",
+  },
+  {
+    name: "Aliu Bajo",
+    from: "Uba",
+    date: "27 Sept 2023",
+    time: "10:06 AM",
+    amount: "15,000",
+    type: "CREDIT",
+    description: "Food Money",
+  },
+  {
+    name: "Aliu Bajo",
+    from: "Uba",
+    date: "27 Sept 2023",
+    time: "10:06 AM",
+    amount: "15,000",
+    type: "CREDIT",
     description: "Food Money",
   },
   {
