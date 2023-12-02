@@ -4,40 +4,19 @@ import {
   Food,
   Others,
   Fuel,
-} from "../assets/spending-tracker";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
+} from "@/assets/spending-tracker";
+import Select from "./ui/Select";
 
 export const SpendingTracker = () => {
   return (
-    <div className="bg-white p-4 m-4 rounded-lg flex flex-col gap-10 ">
+    <div className="bg-white p-4  rounded-lg flex flex-col gap-10 ">
       <div className="bg-info p-4 rounded-lg flex items-center justify-center">
         <h2> How are you spending your money?</h2>
       </div>
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-primary font-bold text-2xl">Spending Tracker</h1>
-        <Select>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Fruits</SelectLabel>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-              <SelectItem value="blueberry">Blueberry</SelectItem>
-              <SelectItem value="grapes">Grapes</SelectItem>
-              <SelectItem value="pineapple">Pineapple</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+
+        <Select items={["Mar 2023"]} />
       </div>
       <div className="flex flex-col gap-3">
         {trackItems.map((item, index) => (

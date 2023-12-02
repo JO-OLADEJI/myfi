@@ -5,8 +5,8 @@ import { TransactionHistory } from "../components/TransactionHistory";
 
 export const Dashboard = () => {
   return (
-    <div className="flex justify-between grow">
-      <main>
+    <div className="flex justify-between gap-10 grow p-10">
+      <main className="grow">
         <MainCard />
         <ConnectBanks />
         <TransactionHistory />
