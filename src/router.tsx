@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "./Home";
 import { DashLayout } from "./layout/DashLayout";
-import { Dashboard } from "./pages/Dashboard";
+import { Analytics, Dashboard, Home } from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Dashboard />,
+      },
+      {
+        path: "analytics",
+        element: <Analytics />,
       },
     ],
   },

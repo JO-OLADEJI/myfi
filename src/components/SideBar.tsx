@@ -41,7 +41,7 @@ const SideBarItems = [
   },
   {
     icon: <Chart />,
-    path: "/chart",
+    path: "/dashboard/analytics",
   },
 
   {
