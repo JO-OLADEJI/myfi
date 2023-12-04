@@ -7,11 +7,13 @@ import {
 } from "@/assets/spending-tracker";
 import Select from "./ui/Select";
 
-export const SpendingTracker = ({ noHeader }: { noHeader: boolean }) => {
+export const SpendingTracker = ({ noHeader }: { noHeader?: boolean }) => {
   return (
     <div className="bg-white p-4 pt-8  rounded-3xl flex flex-col gap-10 ">
       <div className="bg-info p-4 rounded-xl flex items-center justify-center">
-        <h2 className="text-primary">&#129488; How are you spending your money?</h2>
+        <h2 className="text-primary">
+          &#129488; How are you spending your money?
+        </h2>
       </div>
       <div className="flex flex-col items-center justify-center">
         <h1 className="text-primary font-bold text-2xl">Spending Tracker</h1>
