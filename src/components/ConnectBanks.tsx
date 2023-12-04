@@ -1,8 +1,12 @@
 import { Button } from "./ui/Button";
-import { Uba, Kuda } from "@/assets/banks-logo";
+import { Uba, Kuda, Default } from "@/assets/banks-logo";
 import { Plus } from "@/assets/banks-connected";
+import useAppStore from "@/contexts/state";
+import { SupportedBanks } from "@/types/banks.type";
 
 export const ConnectBanks = () => {
+  const connectedBanks = useAppStore((state) => state.connectedBanks);
+
   return (
     <div className="bg-white p-10  flex flex-col gap-3 rounded-3xl ">
       <p className=" text-neutral-400 text-lg font-normal ">
@@ -16,10 +20,7 @@ export const ConnectBanks = () => {
           <Button className="text-blue-700 text-base font-normal ">Add</Button>
         </div>
         {connectedBanks.map((bank, index) => (
-          <div
-            className="flex   flex-col gap-2 w-max items-center "
-            key={index}
-          >
+          <div className="flex flex-col gap-2 w-max items-center" key={index}>
             {getLogo(bank)}
             <p className="text-neutral-400 text-base font-normal font-['Inter']">
               {bank}
@@ -33,14 +34,11 @@ export const ConnectBanks = () => {
 
 const getLogo = (bank: string) => {
   switch (bank) {
-    case "Kuda":
+    case SupportedBanks.UBA:
+      return <Uba />;
+    case SupportedBanks.KUDA:
       return <Kuda />;
-    case "Uba":
-      return <Uba />;
-
     default:
-      return <Uba />;
+      return <Default />;
   }
 };
-
-const connectedBanks = ["Kuda", "Uba"];
