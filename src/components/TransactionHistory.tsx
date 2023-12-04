@@ -1,8 +1,8 @@
-import { Kuda, Uba } from "@/assets/banks-logo";
+import { Kuda } from "@/assets/banks-logo";
 
 export const TransactionHistory = () => {
   return (
-    <div className="bg-white p-10  rounded-lg ">
+    <div className="bg-white p-10 rounded-3xl">
       <p className=" text-neutral-400 text-lg font-normal ">
         Transaction History
       </p>

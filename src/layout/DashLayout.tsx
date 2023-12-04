@@ -3,9 +3,9 @@ import { SideBar } from "@/components/SideBar";
 
 export const DashLayout = () => {
   return (
-    <div className="w-screen h-screen flex bg-base-100">
+    <div className="h-screen flex bg-base-100">
       <SideBar />
-      <div className="p-10 grow">
+      <div className="p-5 grow overflow-auto">
         <Outlet />
       </div>
     </div>
