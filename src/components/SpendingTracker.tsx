@@ -7,16 +7,20 @@ import {
 } from "@/assets/spending-tracker";
 import Select from "./ui/Select";
 
-export const SpendingTracker = () => {
+export const SpendingTracker = ({ noHeader }: { noHeader: boolean }) => {
   return (
     <div className="bg-white p-4  rounded-lg flex flex-col gap-10 ">
-      <div className="bg-info p-4 rounded-lg flex items-center justify-center">
-        <h2> How are you spending your money?</h2>
-      </div>
-      <div className="flex flex-col items-center justify-center">
+      {noHeader ? (
+        ""
+      ) : (
+        <div className="bg-info p-4 rounded-lg flex items-center justify-center">
+          <h2> How are you spending your money?</h2>
+        </div>
+      )}
+      <div className="flex flex-col gap-3 items-center justify-center">
         <h1 className="text-primary font-bold text-2xl">Spending Tracker</h1>
 
-        <Select items={["Mar 2023"]} />
+        {noHeader ? null : <Select items={["Mar 2023"]} />}
 
         <div
           style={{
