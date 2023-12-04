@@ -5,7 +5,7 @@ import { ViewAll } from "@/assets/main-card/view-all";
 
 export const MainCard = () => {
   return (
-    <div className="bg-white rounded-lg p-10  w-full ">
+    <div className="bg-white rounded-3xl p-10  w-full ">
       <p className=" text-neutral-400 text-lg font-normal ">Total Balance</p>
       <div className="flex items-center">
         <h1 className=" text-black text-[54px] font-medium ">153,000.65</h1>

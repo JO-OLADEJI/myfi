@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { Web5Context } from "../contexts/web5";
 import { Link } from "react-router-dom";
+import useAppStore from "@/contexts/state";
 
 export const Home = (): JSX.Element => {
-  const { did } = useContext(Web5Context);
+  const did = useAppStore((state) => state.did);
 
   return (
     <div>

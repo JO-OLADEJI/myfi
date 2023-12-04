@@ -4,7 +4,7 @@ import { Plus } from "@/assets/banks-connected";
 
 export const ConnectBanks = () => {
   return (
-    <div className="bg-white p-10  flex flex-col gap-3 rounded-lg ">
+    <div className="bg-white p-10  flex flex-col gap-3 rounded-3xl ">
       <p className=" text-neutral-400 text-lg font-normal ">
         All Banks Connected
       </p>

@@ -5,7 +5,7 @@ export default {
     themes: [
       {
         myfi: {
-          primary: "#2542da",
+          primary: "#2643DB",
 
           secondary: "#070D18",
 
