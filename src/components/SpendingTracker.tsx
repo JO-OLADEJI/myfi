@@ -94,20 +94,20 @@ const getIcon = (name: string) => {
 const getBg = (name: string) => {
   switch (name) {
     case "Airtime/Data":
-      return "#9747FF";
+      return "#9747FF66";
 
     case "Food":
-      return "#E62C46";
+      return "#E62C4666";
 
     case "Fuel":
-      return "#61BC51";
+      return "#61BC5166";
 
     case "Flex":
-      return "#FFC400";
+      return "#FFC40066";
     case "Others":
-      return "#745125";
+      return "#74512566";
     default:
-      return "#F4F6FF";
+      return "#F4F6FF66";
   }
 };
 const trackItems = [

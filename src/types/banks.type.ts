@@ -14,8 +14,8 @@ interface Entity {
 export interface Transaction {
   from: Entity;
   to: Entity;
-  amountIn: Number;
-  amountOut: Number;
-  timestamp: String;
-  desc: String;
+  amountIn: number;
+  amountOut: number;
+  timestamp: string;
+  desc: string;
 }

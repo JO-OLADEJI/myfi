@@ -1,0 +1,68 @@
+{
+  "protocol": "https://myfi.website/web5-protocol",
+  "published": true,
+  "types": {
+    "from": {
+      "schema": "https://myfi.website/schemas/fromSchema",
+      "dataFormats": ["application/json"]
+    },
+    "to": {
+      "schema": "https://myfi.website/schemas/toSchema",
+      "dataFormats": ["application/json"]
+    },
+    "amountIn": {
+      "schema": "https://myfi.website/schemas/amountInSchema",
+      "dataFormats": ["text/plain"]
+    },
+    "amountOut": {
+      "schema": "https://myfi.website/schemas/amountOutSchema",
+      "dataFormats": ["text/plain"]
+    },
+    "timestamp": {
+      "schema": "https://myfi.website/schemas/timestampSchema",
+      "dataFormats": ["text/plain"]
+    },
+    "desc": {
+      "schema": "https://myfi.website/schemas/descSchema",
+      "dataFormats": ["text/plain"]
+    }
+  },
+  "structure": {
+    "from": {
+      "$actions": [
+        { "who": "author", "of": "from", "can": "read" },
+        { "who": "recipient", "of": "from", "can": "read" }
+      ]
+    },
+    "to": {
+      "$actions": [
+        { "who": "author", "of": "to", "can": "read" },
+        { "who": "recipient", "of": "to", "can": "read" }
+      ]
+    },
+    "amountIn": {
+      "$actions": [
+        { "who": "author", "of": "amountIn", "can": "read" },
+        { "who": "recipient", "of": "amountIn", "can": "read" }
+      ]
+    },
+    "amountOut": {
+      "$actions": [
+        { "who": "author", "of": "amountOut", "can": "read" },
+        { "who": "recipient", "of": "amountOut", "can": "read" }
+      ]
+    },
+    "timestamp": {
+      "$actions": [
+        { "who": "author", "of": "timestamp", "can": "read" },
+        { "who": "recipient", "of": "timestamp", "can": "read" }
+      ]
+    },
+    "desc": {
+      "$actions": [
+        { "who": "author", "of": "desc", "can": "write" },
+        { "who": "recipient", "of": "desc", "can": "read" }
+      ]
+    }
+  }
+}
