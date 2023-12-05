@@ -6,8 +6,10 @@ interface AppState {
   // web5
   did: string;
   isDidConnected: boolean;
+  isProtocolConfigured: boolean;
   toggleDidConnection: () => void;
   setDid: (connectedDid: string) => void;
+  setIsProtocolConfigured: (isConfigured: boolean) => void;
 
   // finance
   totalBalance: number;
@@ -21,9 +23,12 @@ const useAppStore = create<AppState>()(
     (set) => ({
       did: "",
       isDidConnected: false,
+      isProtocolConfigured: false,
       toggleDidConnection: () =>
         set((state) => ({ isDidConnected: !state.isDidConnected })),
       setDid: (connectedDid: string) => set({ did: connectedDid }),
+      setIsProtocolConfigured: (isConfigured: boolean) =>
+        set({ isProtocolConfigured: isConfigured }),
 
       totalBalance: 153000.65,
       connectedBanks: [SupportedBanks.UBA, SupportedBanks.KUDA],

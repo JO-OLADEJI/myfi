@@ -1,3 +1,3 @@
-import useInstallProtocol from "./useInstallProtocol";
+import useConfigureProtocol from "./useConfigureProtocol";
 
-export { useInstallProtocol };
+export { useConfigureProtocol };

@@ -4,23 +4,38 @@ import { Refresh } from "@/assets/main-card/refresh";
 import { ViewAll } from "@/assets/main-card/view-all";
 import useAppStore from "@/contexts/state";
 import config from "@/config.json";
-import { useInstallProtocol } from "@/web5/hooks";
 
 export const MainCard = () => {
   const did = useAppStore((state) => state.did);
+  const isProtocolConfigured = useAppStore(
+    (state) => state.isProtocolConfigured
+  );
   const totalBalance = useAppStore((state) => state.totalBalance);
   const isDidConnected = useAppStore((state) => state.isDidConnected);
   const toggleDidConnection = useAppStore((state) => state.toggleDidConnection);
-  const { configureProtocol, installingProtocol, successInstallingProtocol } =
-    useInstallProtocol();
 
   const handleConnectDid = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
     toggleDidConnection();
-    if (!isDidConnected) {
-      configureProtocol();
+  };
+
+  const connectBtnState = () => {
+    if (isDidConnected) {
+      if (did.length > 0) {
+        return isProtocolConfigured
+          ? did.substring(0, 14) + " . . ."
+          : "configuring . . .";
+      } else {
+        return "loading . . .";
+      }
+    } else {
+      return (
+        <>
+          Connect DID <Connect />
+        </>
+      );
     }
   };
 
@@ -36,21 +51,7 @@ export const MainCard = () => {
         </p>
       </div>
       <div className="flex gap-3">
-        <Button onClick={handleConnectDid}>
-          {isDidConnected || successInstallingProtocol ? (
-            did === "" ? (
-              "loading . . ."
-            ) : (
-              did.substring(0, 14) + " . . ."
-            )
-          ) : installingProtocol ? (
-            "loading . . ."
-          ) : (
-            <>
-              Connect DID <Connect />
-            </>
-          )}
-        </Button>
+        <Button onClick={handleConnectDid}>{connectBtnState()}</Button>
         <Button variaant="outline">
           View All <ViewAll />
         </Button>
