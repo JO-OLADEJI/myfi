@@ -6,6 +6,30 @@ import {
   Fuel,
 } from "@/assets/spending-tracker";
 import Select from "./ui/Select";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+const data = {
+  labels: ["Airtime/Data", "Food", "Fuel", "Flex", "Others"],
+  datasets: [
+    {
+      circumference: 360,
+      data: [114000.74, 103270.74, 74000.45, 37000, 14000.53],
+      backgroundColor: [
+        "#9747FF19",
+        "#E62C4619",
+        "#61BC5119",
+        "#FFC40019",
+        "#74512519",
+      ],
+      borderColor: ["#9747FF", "#E62C46", "#61BC51", "#FFC400", "#745125"],
+      borderWidth: 1,
+      spacing: 5,
+    },
+  ],
+};
 
 export const SpendingTracker = ({ noHeader }: { noHeader?: boolean }) => {
   return (
@@ -20,27 +44,11 @@ export const SpendingTracker = ({ noHeader }: { noHeader?: boolean }) => {
 
         {noHeader ? null : <Select items={["Mar 2023"]} />}
 
-        <div
-          style={{
-            background: `conic-gradient(
-                  #9747FF 0% 30%,
-                  #61BC51 30% 40%,
-                  #745125 40% 60%,
-                 #E62C46 60% 80%,
-                 #FFC400 80% 100%
-              )`,
-          }}
-          className=" rounded-full  w-[200px] h-[200px] flex items-center justify-center bg-red-100  "
-        >
-          <div className="bg-white p-8 rounded-full">
-            <img
-              className="bg-white rounded-full shadow-lg p-3 px-4"
-              src="/star.svg"
-            />
-          </div>
+        <div className="h-[22rem]">
+          <Doughnut data={data} />
         </div>
       </div>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 -mt-10">
         {trackItems.map((item, index) => (
           <div className="flex  gap-10 items-center" key={index}>
             {getIcon(item.name)}

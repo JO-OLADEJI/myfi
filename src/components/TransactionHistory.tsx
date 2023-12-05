@@ -1,9 +1,10 @@
 import { Kuda } from "@/assets/banks-logo";
+import transactions from "@/transactions.json";
 
 export const TransactionHistory = () => {
   return (
     <div className="bg-white p-10 rounded-3xl">
-      <p className=" text-neutral-400 text-lg font-normal ">
+      <p className=" text-neutral-400 text-lg font-normal mb-5">
         Transaction History
       </p>
       <div className="flex flex-col gap-6 overflow-auto max-h-[24vh] scroll-bar">
@@ -14,28 +15,48 @@ export const TransactionHistory = () => {
                 <Kuda />
               </div>
             </div>
-            <div className="flex flex-col ml-4">
-              <p className="font-normal">{transaction.name}</p>
+            <div className="flex flex-col ml-4 w-3/6">
+              <p className="font-normal truncate">{transaction.to.name}</p>
               <p className="text-neutral-400 text-xs font-normal">
-                Sent from {transaction.from}
+                Sent from {transaction.from.bank}
               </p>
             </div>
-            <div className="flex flex-col ml-auto">
-              <p>{transaction.date}</p>
+            <div className="flex flex-col ml-auto w-2/6">
+              <p>
+                {
+                  new Date(transaction.timestamp)
+                    .toUTCString()
+                    .match(/\d{2}.*\d{4}/)?.[0]
+                }
+              </p>
               <p className="text-neutral-400 text-xs font-normal">
-                {transaction.time}
+                {new Date(transaction.timestamp).toLocaleTimeString("en-US", {
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                })}
               </p>
             </div>
-            <div className="flex flex-col ml-auto">
+            <div className="flex flex-col pr-2 w-1/6 text-right">
               <p
                 className={`${
-                  transaction.type === "DEBIT" ? "text-error" : "text-success"
+                  transaction.amountOut > transaction.amountIn
+                    ? "text-error"
+                    : "text-success"
                 }`}
-              >
-                {transaction.type === "DEBIT" ? "-" : "+"} {transaction.amount}
-              </p>
-              <p className="text-neutral-400 text-xs font-normal">
-                {transaction.description}
+                dangerouslySetInnerHTML={{
+                  __html:
+                    transaction.amountOut > transaction.amountIn
+                      ? `-&#8358;${new Intl.NumberFormat().format(
+                          transaction.amountOut - transaction.amountIn
+                        )}`
+                      : `+&#8358;${new Intl.NumberFormat().format(
+                          transaction.amountIn - transaction.amountOut
+                        )}`,
+                }}
+              />
+              <p className="text-neutral-400 text-xs font-normal truncate">
+                {transaction.desc}
               </p>
             </div>
           </div>
@@ -44,42 +65,3 @@ export const TransactionHistory = () => {
     </div>
   );
 };
-
-const transactions = [
-  {
-    name: "Aliu Bajo",
-    from: "Uba",
-    date: "27 Sept 2023",
-    time: "10:06 AM",
-    amount: "15,000",
-    type: "DEBIT",
-    description: "Food Money",
-  },
-  {
-    name: "Aliu Bajo",
-    from: "Uba",
-    date: "27 Sept 2023",
-    time: "10:06 AM",
-    amount: "15,000",
-    type: "CREDIT",
-    description: "Food Money",
-  },
-  {
-    name: "Aliu Bajo",
-    from: "Uba",
-    date: "27 Sept 2023",
-    time: "10:06 AM",
-    amount: "15,000",
-    type: "CREDIT",
-    description: "Food Money",
-  },
-  {
-    name: "Aliu Bajo",
-    from: "Uba",
-    date: "27 Sept 2023",
-    time: "10:06 AM",
-    amount: "15,000",
-    type: "CREDIT",
-    description: "Food Money",
-  },
-];

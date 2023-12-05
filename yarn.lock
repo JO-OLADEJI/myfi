@@ -509,6 +509,11 @@
     jsbi "^4.3.0"
     tslib "^2.4.1"
 
+"@kurkle/color@^0.3.0":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@kurkle/color/-/color-0.3.2.tgz#5acd38242e8bde4f9986e7913c8fdf49d3aa199f"
+  integrity sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==
+
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
@@ -1474,6 +1479,13 @@ chalk@^5.2.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-5.3.0.tgz#67c20a7ebef70e7f3970a01f90fa210cb6860385"
   integrity sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==
+
+chart.js@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-4.4.1.tgz#ac5dc0e69a7758909158a96fe80ce43b3bb96a9f"
+  integrity sha512-C74QN1bxwV1v2PEujhmKjOZ7iUM4w6BWs23Md/6aOZZSlwMzeCIDGuZay++rBgChYru7/+QFeoQW0fQoP534Dg==
+  dependencies:
+    "@kurkle/color" "^0.3.0"
 
 chokidar@^3.5.3:
   version "3.5.3"
@@ -2889,6 +2901,11 @@ randombytes@2.1.0, randombytes@^2.0.5, randombytes@^2.1.0:
   integrity sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==
   dependencies:
     safe-buffer "^5.1.0"
+
+react-chartjs-2@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-5.2.0.tgz#43c1e3549071c00a1a083ecbd26c1ad34d385f5d"
+  integrity sha512-98iN5aguJyVSxp5U3CblRLH67J8gkfyGNbiK3c+l1QI/G4irHMPQw44aEPmjVag+YKTyQ260NcF82GTQ3bdscA==
 
 react-dom@^18.2.0:
   version "18.2.0"
