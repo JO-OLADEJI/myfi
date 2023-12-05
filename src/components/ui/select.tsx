@@ -6,7 +6,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Select({ items }: { items: string[] }) {
+export const Select = ({ items }: { items: string[] }) => {
   const [selected, setSelected] = useState(items[0]);
 
   return (
@@ -74,4 +74,4 @@ export default function Select({ items }: { items: string[] }) {
       )}
     </Listbox>
   );
-}
+};
