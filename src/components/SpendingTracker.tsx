@@ -5,7 +5,7 @@ import {
   Others,
   Fuel,
 } from "@/assets/spending-tracker";
-import { Select } from "./ui/Select";
+import { Select } from "./ui/Select.tsx";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
