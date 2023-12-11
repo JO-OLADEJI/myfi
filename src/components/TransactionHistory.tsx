@@ -1,29 +1,25 @@
-import { Kuda, Uba, Zenith, Gt, Fidelity, Default } from "@/assets/banks-logo";
 import useAppStore from "@/contexts/state";
-import { useEffect } from "react";
+import { Web5Context } from "@/contexts/web5";
+import { getBankLogo } from "@/lib/utils";
+import { useDwnRecord } from "@/web5/hooks";
+import { useContext, useEffect } from "react";
 
 export const TransactionHistory = () => {
+  const { web5 } = useContext(Web5Context);
+  const { syncTxsToDwn, getTxsFromDwn } = useDwnRecord();
   const transactions = useAppStore((state) => state.transactions);
   const setTransactions = useAppStore((state) => state.setTransactions);
 
-  const url = new URL("https://myfi-mbsj.onrender.com/connect/10010/gt");
-  const request = new Request(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
   useEffect(() => {
-    fetch(request)
-      .then((response) => response.json())
-      .then((data) => {
-        setTransactions(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
+    const syncTxs = async () => {
+      if (web5) {
+        await syncTxsToDwn(web5);
+        const txs = await getTxsFromDwn(web5);
+        setTransactions(txs);
+      }
+    };
+    syncTxs();
+  }, [web5]);
 
   return (
     <div className="bg-white p-10 rounded-3xl">
@@ -100,21 +96,4 @@ export const TransactionHistory = () => {
       </div>
     </div>
   );
-};
-
-const getBankLogo = (bank: string) => {
-  switch (bank.toLowerCase()) {
-    case "kuda":
-      return <Kuda />;
-    case "gtbank":
-      return <Gt />;
-    case "uba":
-      return <Uba />;
-    case "fidelity":
-      return <Fidelity />;
-    case "keystone":
-      return <Zenith />;
-    default:
-      return <Default />;
-  }
 };

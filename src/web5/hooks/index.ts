@@ -1,3 +1,4 @@
 import useConfigureProtocol from "./useConfigureProtocol";
+import useDwnRecord from "./useDwnRecord";
 
-export { useConfigureProtocol };
+export { useConfigureProtocol, useDwnRecord };

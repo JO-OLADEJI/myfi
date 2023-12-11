@@ -1,0 +1,18 @@
+{
+  "protocol": "https://myfi.website/web5-protocol",
+  "published": true,
+  "types": {
+    "transaction": {
+      "schema": "https://myfi.website/schemas/transactions",
+      "dataFormats": ["application/json"]
+    }
+  },
+  "structure": {
+    "transaction": {
+      "$actions": [
+        { "who": "author", "of": "transaction", "can": "write" },
+        { "who": "recipient", "of": "transaction", "can": "read" }
+      ]
+    }
+  }
+}
