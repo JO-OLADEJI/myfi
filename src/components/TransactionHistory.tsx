@@ -1,4 +1,4 @@
-import { Kuda } from "@/assets/banks-logo";
+import { Kuda, Uba, Zenith, Gt, Fidelity, Default } from "@/assets/banks-logo";
 import useAppStore from "@/contexts/state";
 import { useEffect } from "react";
 
@@ -6,9 +6,7 @@ export const TransactionHistory = () => {
   const transactions = useAppStore((state) => state.transactions);
   const setTransactions = useAppStore((state) => state.setTransactions);
 
-  const url = new URL(
-    "https://myfi-mbsj.onrender.com/connect/10010/gt"
-  );
+  const url = new URL("https://myfi-mbsj.onrender.com/connect/10010/gt");
   const request = new Request(url, {
     method: "POST",
     headers: {
@@ -42,13 +40,21 @@ export const TransactionHistory = () => {
             <div key={index} className="flex">
               <div className="flex flex-col">
                 <div className="bg-neutral-100 rounded-full w-12 h-12 flex items-center justify-center">
-                  <Kuda />
+                  {transaction.amountIn > transaction.amountOut
+                    ? getBankLogo(transaction.to.bank)
+                    : getBankLogo(transaction.from.bank)}
                 </div>
               </div>
               <div className="flex flex-col ml-4 w-3/6">
-                <p className="font-normal truncate">{transaction.to.name}</p>
+                <p className="font-normal truncate">
+                  {transaction.amountIn > transaction.amountOut
+                    ? `${transaction.from.name}`
+                    : `${transaction.to.name}`}
+                </p>
                 <p className="text-neutral-400 text-xs font-normal">
-                  Sent from {transaction.from.bank}
+                  {transaction.amountIn > transaction.amountOut
+                    ? `Received in ${transaction.to.bank}`
+                    : `Sent from ${transaction.from.bank}`}
                 </p>
               </div>
               <div className="flex flex-col ml-auto w-2/6">
@@ -94,4 +100,21 @@ export const TransactionHistory = () => {
       </div>
     </div>
   );
+};
+
+const getBankLogo = (bank: string) => {
+  switch (bank.toLowerCase()) {
+    case "kuda":
+      return <Kuda />;
+    case "gtbank":
+      return <Gt />;
+    case "uba":
+      return <Uba />;
+    case "fidelity":
+      return <Fidelity />;
+    case "keystone":
+      return <Zenith />;
+    default:
+      return <Default />;
+  }
 };

@@ -1,4 +1,4 @@
-export const Gt = () => {
+export const Zenith = () => {
   return (
     <svg
       id="Layer_2"
@@ -30,22 +30,14 @@ export const Gt = () => {
           `}
         </style>
       </defs>
-      <g id="Layer_1-2" data-name="Layer 1">
-        <rect
-          className="cls-3"
-          x="10.48"
-          y="10.48"
-          width="79.04"
-          height="79.04"
-          rx="8.67"
-          ry="8.67"
-        />
-        <rect
+      <g id="Layer_5" data-name="Layer 5">
+        <path
           className="cls-2"
-          x="66.39"
-          y="33.07"
-          width="13.25"
-          height="13.25"
+          d="m85.87,57.55l-6.23,27.23-71.46.33L85.91,21.8l-35.42,42.7h27.05c4.08-.23,7.1-5.11,8.14-7.02.06-.11.22-.04.19.08Z"
+        />
+        <path
+          className="cls-3"
+          d="m11.88,77.85l35.86-42.68h-27.89c-3.09-.03-5.3,2.33-6.14,3.4-.08.1-.24.02-.2-.1l6.47-23.58h69.19L11.88,77.85Z"
         />
         <rect className="cls-1" width="100" height="100" />
       </g>
