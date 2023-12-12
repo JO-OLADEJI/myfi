@@ -19,3 +19,11 @@ export interface Transaction {
   timestamp: string;
   desc: string;
 }
+
+export type SearchKey =
+  | "from"
+  | "to"
+  | "amountIn"
+  | "amountOut"
+  | "timestamp"
+  | "desc";
