@@ -13,10 +13,21 @@ export const SectionThree = () => {
           for better management.
         </p>
       </div>
-      <div>
+      <div className="flex gap-20">
         {cards.map((card, index) => (
-          <div key={index} className="flex-col rounded-lg shadow-lg">
-            <img src={card.icon} alt={card.title} />
+          <div
+            key={index}
+            className=" max-w-[350px] items-center justify-center h-max flex flex-col gap-3 p-6 rounded-lg shadow-lg"
+          >
+            <img
+              className="h-[139px] w-[132.9px]"
+              src={card.icon}
+              alt={card.title}
+            />
+            <p className="text-primary text-center  text-2xl font-semibold font-['Inter'] leading-[34px]">
+              {card.title}
+            </p>
+            <p className="text-center">{card.desc}</p>
           </div>
         ))}
       </div>
@@ -30,5 +41,15 @@ const cards = [
     desc: `Why track your expenses and transaction history manually 
     when you can let us do it for you`,
     icon: "/landing/manual-tracking.png",
+  },
+  {
+    title: "User only access",
+    desc: `Imagine a world where only you have access to your financial data, no third party on MyFi.`,
+    icon: "/landing/user-only-access.png",
+  },
+  {
+    title: "Easy to use",
+    desc: `Our user experience is smooth and very easy for every user to understand how it works`,
+    icon: "/landing/easy-to-use.png",
   },
 ];
