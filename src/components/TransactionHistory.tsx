@@ -1,9 +1,10 @@
 import useAppStore from "@/contexts/state";
 import { Web5Context } from "@/contexts/web5";
 import { getBankLogo } from "@/lib/utils";
-import { useDwnRecord } from "@/web5/hooks";
+import { useDwnRecord, useSearchTx } from "@/web5/hooks";
 import { useContext, useEffect, useState } from "react";
 import { InfoIcon, SearchIcon } from "@/assets/icons";
+import { Transaction } from "@/types/banks.type";
 // import { isMobile, isMacOs, isWindows } from "react-device-detect";
 
 export const TransactionHistory = () => {
@@ -12,6 +13,11 @@ export const TransactionHistory = () => {
   const transactions = useAppStore((state) => state.transactions);
   const setTransactions = useAppStore((state) => state.setTransactions);
   const [searchLiteral, setSearchLiteral] = useState<string>("");
+  const searchresult = useSearchTx({ searchPayload: searchLiteral });
+
+  useEffect(() => {
+    console.log(searchresult);
+  }, [searchresult]);
 
   useEffect(() => {
     const syncTxs = async () => {
@@ -41,7 +47,10 @@ export const TransactionHistory = () => {
         <InfoIcon className="w-4 h-4 cursor-pointer" />
       </div>
       <div className="flex flex-col gap-6 overflow-auto max-h-[24vh] scroll-bar">
-        {transactions
+        {(searchLiteral
+          ? searchresult.map((match) => match.item as Transaction)
+          : transactions
+        )
           .sort(
             (a, b) =>
               new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf()
