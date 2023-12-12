@@ -2,13 +2,16 @@ import useAppStore from "@/contexts/state";
 import { Web5Context } from "@/contexts/web5";
 import { getBankLogo } from "@/lib/utils";
 import { useDwnRecord } from "@/web5/hooks";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import { InfoIcon, SearchIcon } from "@/assets/icons";
+// import { isMobile, isMacOs, isWindows } from "react-device-detect";
 
 export const TransactionHistory = () => {
   const { web5 } = useContext(Web5Context);
   const { syncTxsToDwn, getTxsFromDwn } = useDwnRecord();
   const transactions = useAppStore((state) => state.transactions);
   const setTransactions = useAppStore((state) => state.setTransactions);
+  const [searchLiteral, setSearchLiteral] = useState<string>("");
 
   useEffect(() => {
     const syncTxs = async () => {
@@ -22,10 +25,21 @@ export const TransactionHistory = () => {
   }, [web5]);
 
   return (
-    <div className="bg-white p-10 rounded-3xl">
-      <p className=" text-neutral-400 text-lg font-normal mb-5">
+    <div className="bg-white p-6 rounded-3xl">
+      <p className=" text-neutral-400 text-lg font-normal mb-3 text-center">
         Transaction History
       </p>
+      <div className="flex mb-4 items-center gap-2">
+        <SearchIcon className="w-6 h-6" />
+        <input
+          type="text"
+          value={searchLiteral}
+          onChange={(e) => setSearchLiteral(e.target.value)}
+          placeholder="search transactions"
+          className="border grow p-2 pl-5 pr-5 rounded-full"
+        />
+        <InfoIcon className="w-4 h-4 cursor-pointer" />
+      </div>
       <div className="flex flex-col gap-6 overflow-auto max-h-[24vh] scroll-bar">
         {transactions
           .sort(
