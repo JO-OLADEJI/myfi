@@ -4,7 +4,7 @@ import { getBankLogo } from "@/lib/utils";
 import { useDwnRecord, useSearchTx } from "@/web5/hooks";
 import { useContext, useEffect, useState } from "react";
 import { InfoIcon, SearchIcon } from "@/assets/icons";
-import { Transaction } from "@/types/banks.type";
+import { Transaction, SearchKey } from "@/types/banks.type";
 // import { isMobile, isMacOs, isWindows } from "react-device-detect";
 
 export const TransactionHistory = () => {
@@ -13,11 +13,38 @@ export const TransactionHistory = () => {
   const transactions = useAppStore((state) => state.transactions);
   const setTransactions = useAppStore((state) => state.setTransactions);
   const [searchLiteral, setSearchLiteral] = useState<string>("");
-  const searchresult = useSearchTx({ searchPayload: searchLiteral });
+  const [searchFilterOn, setSearchFilterOn] = useState<boolean>(false);
+  const [searchFilterIndex, setSearchFilterIndex] = useState<number>(0);
+  const searchFilter: SearchKey[] = [
+    "from",
+    "to",
+    "amountIn",
+    "amountOut",
+    "timestamp",
+    "desc",
+  ];
+  const searchresult = useSearchTx({
+    filterKey: searchFilterOn ? searchFilter[searchFilterIndex] : "",
+    searchPayload: searchLiteral,
+  });
 
-  useEffect(() => {
-    console.log(searchresult);
-  }, [searchresult]);
+  const switchSearchFilter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Tab") {
+      event.preventDefault();
+
+      if (!searchFilterOn) {
+        setSearchFilterOn(true);
+      } else {
+        setSearchFilterIndex(
+          (prevIndex) => (prevIndex + 1) % searchFilter.length
+        );
+      }
+
+      console.log("toggle search filters . . .");
+    } else if (event.key === "Escape") {
+      searchFilterOn && setSearchFilterOn(false);
+    }
+  };
 
   useEffect(() => {
     const syncTxs = async () => {
@@ -39,8 +66,21 @@ export const TransactionHistory = () => {
         <SearchIcon className="w-6 h-6" />
         <input
           type="text"
-          value={searchLiteral}
-          onChange={(e) => setSearchLiteral(e.target.value)}
+          value={
+            searchFilterOn
+              ? `${searchFilter[searchFilterIndex]}: ${searchLiteral}`
+              : searchLiteral
+          }
+          onChange={(e) =>
+            setSearchLiteral(
+              searchFilterOn
+                ? e.target.value.substring(
+                    searchFilter[searchFilterIndex].length + 2
+                  )
+                : e.target.value
+            )
+          }
+          onKeyDown={switchSearchFilter}
           placeholder="search transactions"
           className="border grow p-2 pl-5 pr-5 rounded-full"
         />
