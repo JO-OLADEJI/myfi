@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Connect } from "@/assets/main-card/connect";
 import { Button } from "./ui/Button";
 import { Refresh } from "@/assets/main-card/refresh";
@@ -11,7 +11,20 @@ export const MainCard = () => {
   const isProtocolConfigured = useAppStore(
     (state) => state.isProtocolConfigured
   );
-  const totalBalance = useAppStore((state) => state.totalBalance);
+  const { transactions } = useAppStore();
+  const [totalBalance, setTotalBal] = useState(0);
+
+  useEffect(() => {
+    let total = 0;
+    transactions.forEach((transaction) => {
+      if (transaction.amountOut > transaction.amountIn) {
+        total += transaction.amountOut;
+      } else {
+        total += transaction.amountIn;
+      }
+    });
+    setTotalBal(total);
+  }, [transactions]);
   const isDidConnected = useAppStore((state) => state.isDidConnected);
   const toggleDidConnection = useAppStore((state) => state.toggleDidConnection);
 
