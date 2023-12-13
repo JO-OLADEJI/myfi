@@ -17,6 +17,7 @@ export interface Transaction {
   amountIn: number;
   amountOut: number;
   timestamp: string;
+  dateLiteral?: string;
   desc: string;
 }
 
@@ -25,5 +26,5 @@ export type SearchKey =
   | "to"
   | "amountIn"
   | "amountOut"
-  | "timestamp"
+  | "date"
   | "desc";

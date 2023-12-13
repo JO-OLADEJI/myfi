@@ -1,4 +1,4 @@
-import Fuse, { FuseResult } from "fuse.js";
+import Fuse, { FuseResult, FuseResultMatch } from "fuse.js";
 import useAppStore from "@/contexts/state";
 import { useEffect, useState } from "react";
 import { Transaction, SearchKey } from "@/types/banks.type";
@@ -15,9 +15,18 @@ const searchOptions = {
     "to.bank",
     "amountIn",
     "amountOut",
-    "timestamp",
+    "dateLiteral",
     "desc",
   ],
+};
+
+const isMatch = (matches: readonly FuseResultMatch[], key: string) => {
+  for (let i = 0; i < matches.length; i++) {
+    if (matches[i].key?.includes(key)) {
+      return true;
+    }
+  }
+  return false;
 };
 
 interface SearchParams {
@@ -40,55 +49,46 @@ const useSearchTx = ({
     switch (filterKey) {
       case "from":
         setResult(() => {
-          return searchResult.filter((match) => {
-            if (match.matches) {
-              // must be a debit transaction
-              if (match.item.amountOut > match.item.amountIn) {
-                for (let i = 0; i < match.matches.length; i++) {
-                  if (match.matches[i].key?.includes(filterKey)) {
-                    return true;
-                  }
-                }
-              }
-              return false;
-            }
-          });
+          return searchResult.filter((match) =>
+            match.matches
+              ? match.item.amountOut > match.item.amountIn // debit tx
+                ? isMatch(match.matches, filterKey)
+                : false
+              : false
+          );
         });
         break;
+
       case "to":
         setResult(() => {
-          return searchResult.filter((match) => {
-            if (match.matches) {
-              // must be a credit transaction
-              if (match.item.amountIn > match.item.amountOut) {
-                for (let i = 0; i < match.matches.length; i++) {
-                  if (match.matches[i].key?.includes(filterKey)) {
-                    return true;
-                  }
-                }
-              }
-              return false;
-            }
-          });
+          return searchResult.filter((match) =>
+            match.matches
+              ? match.item.amountIn > match.item.amountOut // credit tx
+                ? isMatch(match.matches, filterKey)
+                : false
+              : false
+          );
         });
         break;
+
+      case "date":
+        setResult(() => {
+          return searchResult.filter((match) =>
+            match.matches ? isMatch(match.matches, "dateLiteral") : false
+          );
+        });
+        break;
+
       case "amountIn":
       case "amountOut":
-      case "timestamp":
       case "desc":
         setResult(() => {
-          return searchResult.filter((match) => {
-            if (match.matches) {
-              for (let i = 0; i < match.matches.length; i++) {
-                if (match.matches[i].key?.includes(filterKey)) {
-                  return true;
-                }
-              }
-            }
-            return false;
-          });
+          return searchResult.filter((match) =>
+            match.matches ? isMatch(match.matches, filterKey) : false
+          );
         });
         break;
+
       default:
         setResult(() => searchResult);
     }

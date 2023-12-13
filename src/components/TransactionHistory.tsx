@@ -5,7 +5,6 @@ import { useDwnRecord, useSearchTx } from "@/web5/hooks";
 import { useContext, useEffect, useState } from "react";
 import { InfoIcon, SearchIcon } from "@/assets/icons";
 import { Transaction, SearchKey } from "@/types/banks.type";
-// import { isMobile, isMacOs, isWindows } from "react-device-detect";
 
 export const TransactionHistory = () => {
   const { web5 } = useContext(Web5Context);
@@ -20,7 +19,7 @@ export const TransactionHistory = () => {
     "to",
     "amountIn",
     "amountOut",
-    "timestamp",
+    "date",
     "desc",
   ];
   const searchresult = useSearchTx({
@@ -51,7 +50,14 @@ export const TransactionHistory = () => {
       if (web5) {
         await syncTxsToDwn(web5);
         const txs = await getTxsFromDwn(web5);
-        setTransactions(txs);
+        setTransactions(
+          txs.map((tx) => ({
+            ...tx,
+            dateLiteral: new Date(tx.timestamp)
+              .toUTCString()
+              .match(/\d{2}.*\d{4}/)?.[0],
+          }))
+        );
       }
     };
     syncTxs();
@@ -118,11 +124,10 @@ export const TransactionHistory = () => {
               </div>
               <div className="flex flex-col ml-auto w-2/6">
                 <p>
-                  {
+                  {transaction.dateLiteral ??
                     new Date(transaction.timestamp)
                       .toUTCString()
-                      .match(/\d{2}.*\d{4}/)?.[0]
-                  }
+                      .match(/\d{2}.*\d{4}/)?.[0]}
                 </p>
                 <p className="text-neutral-400 text-xs font-normal">
                   {new Date(transaction.timestamp).toLocaleTimeString("en-US", {
