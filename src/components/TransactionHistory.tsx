@@ -9,7 +9,7 @@ import { SearchKey, DwnTransaction } from "@/types/banks.type";
 
 export const TransactionHistory = () => {
   const { web5 } = useContext(Web5Context);
-  const { syncTxsToDwn, getTxsFromDwn, addTagToTx } = useDwnRecord();
+  const { syncTxsToDwn, getTxsFromDwn } = useDwnRecord();
   const transactions = useAppStore((state) => state.transactions);
   const setTransactions = useAppStore((state) => state.setTransactions);
   const [searchLiteral, setSearchLiteral] = useState<string>("");

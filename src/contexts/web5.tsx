@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, ReactNode } from "react";
+import { useState, useEffect, createContext, ReactNode } from "react";
 import { Web5 } from "@web5/api/browser";
 import useAppStore from "./state";
 import { useConfigureProtocol } from "@/web5/hooks";
