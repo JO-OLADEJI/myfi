@@ -19,9 +19,9 @@ export const SetionOne = () => {
         for better management.
       </div>
       <div className=" flex items-center justify-center">
-        <button className="btn w-max text-white md:btn-lg rounded-full btn-primary">
+        <a href="/dashboard" className="btn w-max text-white md:btn-lg rounded-full btn-primary">
           Sync now <ArrowRight />
-        </button>
+        </a>
       </div>
       <div className="   w-full h-100vh flex justify-center">
         <img src="/landingimage.png" />

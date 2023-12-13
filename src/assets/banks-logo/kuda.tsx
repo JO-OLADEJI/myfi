@@ -17,7 +17,7 @@ export const Kuda = () => {
 
             .cls-2 {
               fill: #e6e6e6;
-              stroke: gray;
+              stroke: #000000;
               stroke-miterlimit: 10;
               stroke-width: .5px;
             }

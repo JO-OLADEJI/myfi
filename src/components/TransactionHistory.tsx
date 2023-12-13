@@ -4,7 +4,7 @@ import { Web5Context } from "@/contexts/web5";
 import { getBankLogo } from "@/lib/utils";
 import { useDwnRecord, useSearchTx } from "@/web5/hooks";
 import { useContext, useEffect, useState } from "react";
-import { InfoIcon, SearchIcon, TagIcon } from "@/assets/icons";
+import { InfoIcon, SearchIcon } from "@/assets/icons";
 import { SearchKey, DwnTransaction } from "@/types/banks.type";
 
 export const TransactionHistory = () => {
@@ -105,7 +105,7 @@ export const TransactionHistory = () => {
         />
         <InfoIcon className="w-4 h-4 cursor-pointer" />
       </div>
-      <div className="flex flex-col gap-6 overflow-auto max-h-[24vh] scroll-bar">
+      <div className="flex flex-col gap-2 overflow-auto max-h-[24vh] scroll-bar">
         {(searchLiteral
           ? searchresult.map((match) => match.item as DwnTransaction)
           : transactions
@@ -115,9 +115,12 @@ export const TransactionHistory = () => {
               new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf()
           )
           .map((transaction, index) => (
-            <div key={index} className="flex">
+            <div
+              key={index}
+              className="flex border p-1 rounded-2xl cursor-pointer"
+            >
               <div className="flex flex-col">
-                <div className="bg-neutral-100 rounded-full w-12 h-12 flex items-center justify-center">
+                <div className="jbg-neutral-100 rounded-full w-12 h-12 flex items-center justify-center">
                   {transaction.amountIn > transaction.amountOut
                     ? getBankLogo(transaction.to.bank)
                     : getBankLogo(transaction.from.bank)}
@@ -150,7 +153,7 @@ export const TransactionHistory = () => {
                   })}
                 </p>
               </div>
-              <div className="flex flex-col pr-2 w-1/6 text-right border">
+              <div className="flex flex-col pr-2 w-1/6 text-right">
                 <p
                   className={`${
                     transaction.amountOut > transaction.amountIn
@@ -168,21 +171,11 @@ export const TransactionHistory = () => {
                           )}`,
                   }}
                 />
-                <div className="flex justify-between items-center">
-                  <input
-                    type="text"
-                    readOnly={true}
-                    value={transaction.desc}
-                    className="text-neutral-400 text-xs font-normal border w-5/6"
-                  />
-                  <TagIcon
-                    className="w-3 h-3 cursor-pointer"
-                    onClick={() => handleTagClick(transaction)}
-                  />
+                <div className="">
+                  <p className="text-neutral-400 text-xs font-normal truncate">
+                    {transaction.desc}
+                  </p>
                 </div>
-                {/* <p className="text-neutral-400 text-xs font-normal truncate">
-                  {transaction.desc}
-                </p> */}
               </div>
             </div>
           ))}

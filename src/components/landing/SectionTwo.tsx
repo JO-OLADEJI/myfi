@@ -24,9 +24,9 @@ export const SectionTwo = () => {
           ))}
         </select>
         <div className="w-full flex items-center justify-center ">
-          <button className="btn btn-primary w-max rounded-full text-white">
+          <a href="/dashboard" className="btn btn-primary w-max rounded-full text-white">
             Next <ArrowRight />
-          </button>
+          </a>
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@ export const Zenith = () => {
 
             .cls-2 {
               fill: #fafafa;
-              stroke: #666;
+              stroke: #000000;
             }
 
             .cls-2, .cls-3 {
@@ -27,7 +27,7 @@ export const Zenith = () => {
 
             .cls-3 {
               fill: #e6e6e6;
-              stroke: gray;
+              stroke: #000000;
             }
           `}
         </style>

@@ -72,7 +72,7 @@ export const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn glass text-white">Get Started</a>
+        <a href="/dashboard" className="btn glass text-white">Get Started</a>
       </div>
     </nav>
   );
