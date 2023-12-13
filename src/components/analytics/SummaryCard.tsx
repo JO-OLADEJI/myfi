@@ -1,3 +1,4 @@
+import React from "react";
 import { Download } from "@/assets/analytics/Download";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import { Select } from "../ui/Select.tsx";

@@ -1,5 +1,5 @@
+import React, { useState, useEffect, createContext, ReactNode } from "react";
 import { Web5 } from "@web5/api/browser";
-import { useState, useEffect, createContext, ReactNode } from "react";
 import useAppStore from "./state";
 import { useConfigureProtocol } from "@/web5/hooks";
 
@@ -30,11 +30,11 @@ const Web5ContextProvider = ({
       setWeb5(() => web5);
     };
     init();
-  }, []);
+  }, [configureProtocol, setDid]);
 
   useEffect(() => {
     setIsProtocolConfigured(isConfigured);
-  }, [isConfigured]);
+  }, [isConfigured, setIsProtocolConfigured]);
 
   return (
     <Web5Context.Provider value={{ web5 }}>{children}</Web5Context.Provider>

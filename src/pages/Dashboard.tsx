@@ -1,3 +1,4 @@
+import React from "react";
 import { ConnectBanks } from "../components/ConnectBanks";
 import { MainCard } from "../components/MainCard";
 import { SpendingTracker } from "../components/SpendingTracker";

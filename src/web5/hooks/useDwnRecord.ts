@@ -4,67 +4,77 @@ import { Web5 } from "@web5/api";
 import protocolDefinition from "@/protocol1.json";
 import { Transaction } from "@/types/banks.type";
 
+interface DwnTransaction extends Transaction {
+  recordId: string;
+}
+
 interface DwnRecordOperations {
   syncTxsToDwn: (web5: Web5) => Promise<void>;
-  getTxsFromDwn: (web5: Web5) => Promise<any[]>;
-  getTxsFromApi: (from: string) => Promise<any[]>;
+  getTxsFromDwn: (web5: Web5) => Promise<DwnTransaction[]>;
+  getTxsFromApi: (from: string) => Promise<Transaction[]>;
 }
 
 const useDwnRecord = (): DwnRecordOperations => {
   const did = useAppStore((state) => state.did);
 
-  const getTxsFromDwn = useCallback(async (web5: Web5): Promise<any[]> => {
-    console.log("Fetching Txs from user's DWN...");
-    try {
-      const response = await web5.dwn.records.query({
-        message: {
-          filter: {
-            protocol: protocolDefinition.protocol,
+  const getTxsFromDwn = useCallback(
+    async (web5: Web5): Promise<DwnTransaction[]> => {
+      console.log("Fetching Txs from user's DWN...");
+      try {
+        const response = await web5.dwn.records.query({
+          message: {
+            filter: {
+              protocol: protocolDefinition.protocol,
+            },
           },
+        });
+
+        if (response.status.code === 200) {
+          const txs = await Promise.all(
+            response.records?.map(async (record) => {
+              const data = await record.data.json();
+              return {
+                ...data,
+                recordId: record.id,
+              };
+            }) ?? []
+          );
+
+          return txs;
+        } else {
+          console.error("Error fetching Txs:", response.status);
+        }
+      } catch (error) {
+        console.error("Error", error);
+      }
+      return [];
+    },
+    []
+  );
+
+  const getTxsFromApi = useCallback(
+    async (from?: string): Promise<Transaction[]> => {
+      console.log("Fetching Txs from API...");
+      const url = new URL("https://myfi-mbsj.onrender.com/connect/10010/gt");
+      const request = new Request(url, {
+        method: "POST",
+        body: from !== "" ? JSON.stringify({ startDate: from }) : undefined,
+        headers: {
+          "Content-Type": "application/json",
         },
       });
 
-      if (response.status.code === 200) {
-        const txs = await Promise.all(
-          response.records?.map(async (record) => {
-            const data = await record.data.json();
-            return {
-              ...data,
-              recordId: record.id,
-            };
-          }) ?? []
-        );
-
-        return txs;
-      } else {
-        console.error("Error fetching Txs:", response.status);
+      try {
+        const response = await fetch(request);
+        const apiTxs = await response.json();
+        return apiTxs;
+      } catch (error) {
+        console.error("Error in fetchReceivedDirectMessages:", error);
       }
-    } catch (error) {
-      console.error("Error", error);
-    }
-    return [];
-  }, []);
-
-  const getTxsFromApi = useCallback(async (from?: string): Promise<any[]> => {
-    console.log("Fetching Txs from API...");
-    const url = new URL("https://myfi-mbsj.onrender.com/connect/10010/gt");
-    const request = new Request(url, {
-      method: "POST",
-      body: from !== "" ? JSON.stringify({ startDate: from }) : undefined,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    try {
-      const response = await fetch(request);
-      const apiTxs = await response.json();
-      return apiTxs;
-    } catch (error) {
-      console.error("Error in fetchReceivedDirectMessages:", error);
-    }
-    return [];
-  }, []);
+      return [];
+    },
+    []
+  );
 
   const addTxsToDwn = useCallback(
     async (web5: Web5, txs: Transaction[]) => {

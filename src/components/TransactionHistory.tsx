@@ -1,3 +1,4 @@
+import React from "react";
 import useAppStore from "@/contexts/state";
 import { Web5Context } from "@/contexts/web5";
 import { getBankLogo } from "@/lib/utils";
@@ -61,7 +62,7 @@ export const TransactionHistory = () => {
       }
     };
     syncTxs();
-  }, [web5]);
+  }, [web5, getTxsFromDwn, syncTxsToDwn, setTransactions]);
 
   return (
     <div className="bg-white p-6 rounded-3xl">

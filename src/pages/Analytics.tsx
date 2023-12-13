@@ -1,3 +1,4 @@
+import React from "react";
 import { SpendingTracker } from "@/components/SpendingTracker";
 import { TransactionHistory } from "@/components/TransactionHistory";
 import { SummaryCard } from "@/components/analytics/SummaryCard";

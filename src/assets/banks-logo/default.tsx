@@ -1,3 +1,4 @@
+import React from "react";
 import icon from "./bank.png";
 
 export const Default = () => {

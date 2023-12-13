@@ -1,3 +1,5 @@
+import React from "react";
+
 import { SupportedBanks } from "@/types/banks.type";
 import { ArrowRight } from "lucide-react";
 

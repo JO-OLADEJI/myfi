@@ -10,6 +10,7 @@ interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button: React.FC<CustomButtonProps> = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   customProp,
   ...props
 }) => {

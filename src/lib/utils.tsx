@@ -1,3 +1,4 @@
+import React from "react";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { Kuda, Uba, Zenith, Gt, Fidelity, Default } from "@/assets/banks-logo";

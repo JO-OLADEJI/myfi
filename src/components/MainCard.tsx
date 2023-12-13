@@ -1,3 +1,4 @@
+import React from "react";
 import { Connect } from "@/assets/main-card/connect";
 import { Button } from "./ui/Button";
 import { Refresh } from "@/assets/main-card/refresh";

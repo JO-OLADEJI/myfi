@@ -40,10 +40,9 @@ const useSearchTx = ({
 }: SearchParams): FuseResult<Transaction>[] => {
   const transactions = useAppStore((state) => state.transactions);
   const [result, setResult] = useState<FuseResult<Transaction>[]>([]);
-  let fuse: Fuse<Transaction>;
 
   useEffect(() => {
-    fuse = new Fuse(transactions, searchOptions);
+    const fuse: Fuse<Transaction> = new Fuse(transactions, searchOptions);
     const searchResult = fuse.search(searchPayload);
 
     switch (filterKey) {
@@ -92,7 +91,7 @@ const useSearchTx = ({
       default:
         setResult(() => searchResult);
     }
-  }, [searchPayload, filterKey]);
+  }, [searchPayload, filterKey, transactions]);
 
   return result;
 };
