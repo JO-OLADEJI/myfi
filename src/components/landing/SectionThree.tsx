@@ -1,19 +1,19 @@
 export const SectionThree = () => {
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center">
-      <div>
-        <p className=" text-center text-neutral-800 text-[45px] font-bold ">
+    <div className="min-h-screen py-10 flex flex-col justify-center items-center">
+      <div className="flex flex-col gap-3">
+        <p className=" text-center text-neutral-800 text-[24px] md:text-[45px] font-bold ">
           Fully Decentralized.
           <br />
           Completely Secure.
         </p>
-        <p className=" text-center text-neutral-500 text-[22px] font-normal  leading-[34px]">
+        <p className=" text-center text-neutral-500 md:text-[22px] font-normal  md:leading-[34px]">
           You can have all your accounts synced
           <br />
           for better management.
         </p>
       </div>
-      <div className="flex gap-20">
+      <div className="flex flex-col md:flex-row py-10 md:py-0 gap-20">
         {cards.map((card, index) => (
           <div
             key={index}

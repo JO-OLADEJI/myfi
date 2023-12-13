@@ -3,12 +3,12 @@ import { ArrowRight } from "lucide-react";
 
 export const SectionTwo = () => {
   return (
-    <div className="bg-primary  flex justify-around items-center p-10">
+    <div className="bg-primary  flex flex-col gap-6 md:gap-2  md:flex-row justify-around items-center p-10">
       <div className="flex flex-col gap-6">
-        <p className="text-white text-[45px] font-semibold">
-          Take control of your <br /> bank accounts
+        <p className="text-white text-[24px] md:text-[45px] font-semibold">
+          Take control of your bank accounts
         </p>
-        <p className="text-white text-[22px] font-medium">
+        <p className="text-white text-[14px] md:text-[22px] font-medium">
           Take control of your bank accounts all in <br /> one place.
           Synchronize and keep records <br /> all at once.
         </p>
