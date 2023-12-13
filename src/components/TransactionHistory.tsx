@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useCallback } from "react";
 import useAppStore from "@/contexts/state";
 import { Web5Context } from "@/contexts/web5";
 import { getBankLogo } from "@/lib/utils";
 import { useDwnRecord, useSearchTx } from "@/web5/hooks";
 import { useContext, useEffect, useState } from "react";
-import { InfoIcon, SearchIcon } from "@/assets/icons";
-import { Transaction, SearchKey } from "@/types/banks.type";
+import { InfoIcon, SearchIcon, TagIcon } from "@/assets/icons";
+import { SearchKey, DwnTransaction } from "@/types/banks.type";
 
 export const TransactionHistory = () => {
   const { web5 } = useContext(Web5Context);
-  const { syncTxsToDwn, getTxsFromDwn } = useDwnRecord();
+  const { syncTxsToDwn, getTxsFromDwn, addTagToTx } = useDwnRecord();
   const transactions = useAppStore((state) => state.transactions);
   const setTransactions = useAppStore((state) => state.setTransactions);
   const [searchLiteral, setSearchLiteral] = useState<string>("");
@@ -28,23 +28,35 @@ export const TransactionHistory = () => {
     searchPayload: searchLiteral,
   });
 
-  const switchSearchFilter = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Tab") {
-      event.preventDefault();
+  const switchSearchFilter = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === "Tab") {
+        event.preventDefault();
 
-      if (!searchFilterOn) {
-        setSearchFilterOn(true);
-      } else {
-        setSearchFilterIndex(
-          (prevIndex) => (prevIndex + 1) % searchFilter.length
-        );
+        if (!searchFilterOn) {
+          setSearchFilterOn(true);
+        } else {
+          setSearchFilterIndex(
+            (prevIndex) => (prevIndex + 1) % searchFilter.length
+          );
+        }
+
+        console.log("toggle search filters . . .");
+      } else if (event.key === "Escape") {
+        searchFilterOn && setSearchFilterOn(false);
       }
+    },
+    [searchFilter.length, searchFilterOn]
+  );
 
-      console.log("toggle search filters . . .");
-    } else if (event.key === "Escape") {
-      searchFilterOn && setSearchFilterOn(false);
-    }
-  };
+  const handleTagClick = useCallback(
+    (tx: DwnTransaction) => {
+      if (web5) {
+        addTagToTx(web5, tx.recordId);
+      }
+    },
+    [addTagToTx, web5]
+  );
 
   useEffect(() => {
     const syncTxs = async () => {
@@ -95,7 +107,7 @@ export const TransactionHistory = () => {
       </div>
       <div className="flex flex-col gap-6 overflow-auto max-h-[24vh] scroll-bar">
         {(searchLiteral
-          ? searchresult.map((match) => match.item as Transaction)
+          ? searchresult.map((match) => match.item as DwnTransaction)
           : transactions
         )
           .sort(
@@ -138,7 +150,7 @@ export const TransactionHistory = () => {
                   })}
                 </p>
               </div>
-              <div className="flex flex-col pr-2 w-1/6 text-right">
+              <div className="flex flex-col pr-2 w-1/6 text-right border">
                 <p
                   className={`${
                     transaction.amountOut > transaction.amountIn
@@ -156,9 +168,21 @@ export const TransactionHistory = () => {
                           )}`,
                   }}
                 />
-                <p className="text-neutral-400 text-xs font-normal truncate">
+                <div className="flex justify-between items-center">
+                  <input
+                    type="text"
+                    readOnly={true}
+                    value={transaction.desc}
+                    className="text-neutral-400 text-xs font-normal border w-5/6"
+                  />
+                  <TagIcon
+                    className="w-3 h-3 cursor-pointer"
+                    onClick={() => handleTagClick(transaction)}
+                  />
+                </div>
+                {/* <p className="text-neutral-400 text-xs font-normal truncate">
                   {transaction.desc}
-                </p>
+                </p> */}
               </div>
             </div>
           ))}

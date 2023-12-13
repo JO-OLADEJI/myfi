@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { SupportedBanks, Transaction } from "@/types/banks.type";
+import { SupportedBanks, DwnTransaction } from "@/types/banks.type";
 
 interface AppState {
   // web5
@@ -14,8 +14,8 @@ interface AppState {
   // finance
   totalBalance: number;
   connectedBanks: string[];
-  transactions: Transaction[];
-  setTransactions: (newTransactions: Transaction[]) => void;
+  transactions: DwnTransaction[];
+  setTransactions: (newTransactions: DwnTransaction[]) => void;
 }
 
 const useAppStore = create<AppState>()(
@@ -33,7 +33,7 @@ const useAppStore = create<AppState>()(
       totalBalance: 153000.65,
       connectedBanks: [SupportedBanks.UBA, SupportedBanks.KUDA],
       transactions: [],
-      setTransactions: (newTransactions: Transaction[]) =>
+      setTransactions: (newTransactions: DwnTransaction[]) =>
         set({ transactions: newTransactions }),
     }),
     {

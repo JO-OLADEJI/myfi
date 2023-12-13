@@ -2,16 +2,13 @@ import { useCallback } from "react";
 import useAppStore from "@/contexts/state";
 import { Web5 } from "@web5/api";
 import protocolDefinition from "@/protocol1.json";
-import { Transaction } from "@/types/banks.type";
-
-interface DwnTransaction extends Transaction {
-  recordId: string;
-}
+import { Transaction, DwnTransaction } from "@/types/banks.type";
 
 interface DwnRecordOperations {
   syncTxsToDwn: (web5: Web5) => Promise<void>;
   getTxsFromDwn: (web5: Web5) => Promise<DwnTransaction[]>;
   getTxsFromApi: (from: string) => Promise<Transaction[]>;
+  addTagToTx: (web5: Web5, txRecordId: string) => Promise<void>;
 }
 
 const useDwnRecord = (): DwnRecordOperations => {
@@ -138,7 +135,26 @@ const useDwnRecord = (): DwnRecordOperations => {
     [addTxsToDwn, getTxsFromApi, getTxsFromDwn]
   );
 
-  return { syncTxsToDwn, getTxsFromDwn, getTxsFromApi };
+  const addTagToTx = useCallback(async (web5: Web5, txRecordId: string) => {
+    const { record } = await web5.dwn.records.read({
+      message: {
+        filter: {
+          protocol: protocolDefinition.protocol,
+          recordId: txRecordId,
+        },
+      },
+    });
+    const data: Transaction = await record.data.json();
+    const { status } = await record.update({
+      data: { ...data, tag: "custom" },
+    });
+
+    if (status.code === 202) {
+      // update the transaction on the frontend
+    }
+  }, []);
+
+  return { syncTxsToDwn, getTxsFromDwn, getTxsFromApi, addTagToTx };
 };
 
 export default useDwnRecord;

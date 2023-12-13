@@ -21,6 +21,11 @@ export interface Transaction {
   desc: string;
 }
 
+export interface DwnTransaction extends Transaction {
+  recordId: string;
+  tag?: string;
+}
+
 export type SearchKey =
   | "from"
   | "to"
