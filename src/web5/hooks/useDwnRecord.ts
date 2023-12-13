@@ -66,61 +66,67 @@ const useDwnRecord = (): DwnRecordOperations => {
     return [];
   }, []);
 
-  const addTxsToDwn = useCallback(async (web5: Web5, txs: Transaction[]) => {
-    console.log("Adding Txs from user's DWN...");
-    try {
-      const requests = txs.map(async (tx) => {
-        return web5.dwn.records
-          .write({
-            data: tx,
-            message: {
-              protocol: protocolDefinition.protocol,
-              protocolPath: "transaction",
-              schema: protocolDefinition.types.transaction.schema,
-              recipient: did,
-            },
-          })
-          .then((response) => ({
-            record: response.record,
-            status: response.status,
-          }));
-      });
-      await Promise.all(requests);
+  const addTxsToDwn = useCallback(
+    async (web5: Web5, txs: Transaction[]) => {
+      console.log("Adding Txs to user's DWN...");
+      try {
+        const requests = txs.map(async (tx) => {
+          return web5.dwn.records
+            .write({
+              data: tx,
+              message: {
+                protocol: protocolDefinition.protocol,
+                protocolPath: "transaction",
+                schema: protocolDefinition.types.transaction.schema,
+                recipient: did,
+              },
+            })
+            .then((response) => ({
+              record: response.record,
+              status: response.status,
+            }));
+        });
+        await Promise.all(requests);
 
-      console.log("Transactions stored in DWN successfully...");
-    } catch (error) {
-      console.error("Error", error);
-    }
-  }, []);
-
-  const syncTxsToDwn = useCallback(async (web5: Web5) => {
-    try {
-      // 1. query the transactions in the user's DWN
-      const dwnTxs = await getTxsFromDwn(web5);
-
-      // 2a. Sort the transactions in timestamp descending order
-      if (dwnTxs.length > 0) {
-        const sortedDwnTxs = dwnTxs.sort(
-          (a, b) =>
-            new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf()
-        );
-
-        // 3. call the api with the latest transaction timestamp gotten from the user's DWN
-        const apiTxs = await getTxsFromApi(sortedDwnTxs[0].timestamp);
-
-        if (apiTxs.length > 0) {
-          // 4. append the latest transactions to the user's DWN
-          await addTxsToDwn(web5, apiTxs);
-        }
-      } else {
-        // 2b. add all transactions to the user's DWN
-        const apiTxs = await getTxsFromApi();
-        await addTxsToDwn(web5, [...apiTxs.slice(0, apiTxs.length)]);
+        console.log("Transactions stored in DWN successfully...");
+      } catch (error) {
+        console.error("Error", error);
       }
-    } catch (error) {
-      console.error("Error configuring remote protocol...");
-    }
-  }, []);
+    },
+    [did]
+  );
+
+  const syncTxsToDwn = useCallback(
+    async (web5: Web5) => {
+      try {
+        // 1. query the transactions in the user's DWN
+        const dwnTxs = await getTxsFromDwn(web5);
+
+        // 2a. Sort the transactions in timestamp descending order
+        if (dwnTxs.length > 0) {
+          const sortedDwnTxs = dwnTxs.sort(
+            (a, b) =>
+              new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf()
+          );
+
+          // 3. call the api with the latest transaction timestamp gotten from the user's DWN
+          const apiTxs = await getTxsFromApi(sortedDwnTxs[0].timestamp);
+
+          if (apiTxs.length > 0) {
+            // 4. append the latest transactions to the user's DWN
+            await addTxsToDwn(web5, apiTxs);
+          }
+        } else {
+          // 2b. add all transactions to the user's DWN
+          const apiTxs = await getTxsFromApi();
+          await addTxsToDwn(web5, [...apiTxs.slice(0, apiTxs.length)]);
+        }
+      } catch (error) {
+        console.error("Error configuring remote protocol...");
+      }
+    },
+    [addTxsToDwn, getTxsFromApi, getTxsFromDwn]
+  );
 
   return { syncTxsToDwn, getTxsFromDwn, getTxsFromApi };
 };
