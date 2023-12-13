@@ -1,8 +1,7 @@
-import React from "react";
 import { Download } from "@/assets/analytics/Download";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
-import { Select } from "../ui/Select.tsx";
 import { Button } from "../ui/Button";
+import { Select } from "../ui/Select.tsx";
 
 export const SummaryCard = () => {
   return (

@@ -49,15 +49,6 @@ export const TransactionHistory = () => {
     [searchFilter.length, searchFilterOn]
   );
 
-  const handleTagClick = useCallback(
-    (tx: DwnTransaction) => {
-      if (web5) {
-        addTagToTx(web5, tx.recordId);
-      }
-    },
-    [addTagToTx, web5]
-  );
-
   useEffect(() => {
     const syncTxs = async () => {
       if (web5) {

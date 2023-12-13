@@ -1,6 +1,6 @@
+import { Chart, Home, Profile, Settings, Star } from "@/assets/sidebar";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Profile, Home, Chart, Settings, Star } from "@/assets/sidebar";
 
 export const SideBar = () => {
   const location = useLocation();

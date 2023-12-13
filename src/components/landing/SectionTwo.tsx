@@ -1,5 +1,3 @@
-import React from "react";
-
 import { SupportedBanks } from "@/types/banks.type";
 import { ArrowRight } from "lucide-react";
 
@@ -24,7 +22,10 @@ export const SectionTwo = () => {
           ))}
         </select>
         <div className="w-full flex items-center justify-center ">
-          <a href="/dashboard" className="btn btn-primary w-max rounded-full text-white">
+          <a
+            href="/dashboard"
+            className="btn btn-primary w-max rounded-full text-white"
+          >
             Next <ArrowRight />
           </a>
         </div>

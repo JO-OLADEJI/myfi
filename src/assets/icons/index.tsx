@@ -1,4 +1,3 @@
-import React from "react";
 import info from "./info.png";
 import search from "./search.png";
 import tag from "./tag.png";

@@ -1,4 +1,3 @@
-import React from "react";
 import { SectionFour } from "@/components/landing/SectionFOur";
 import { SectionThree } from "@/components/landing/SectionThree";
 import { SectionTwo } from "@/components/landing/SectionTwo";

@@ -1,7 +1,6 @@
-import React from "react";
-import { type ClassValue, clsx } from "clsx";
+import { Default, Fidelity, Gt, Kuda, Uba, Zenith } from "@/assets/banks-logo";
+import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { Kuda, Uba, Zenith, Gt, Fidelity, Default } from "@/assets/banks-logo";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

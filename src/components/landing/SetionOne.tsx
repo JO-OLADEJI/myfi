@@ -1,5 +1,3 @@
-import React from "react";
-
 import { ArrowRight } from "lucide-react";
 
 export const SetionOne = () => {
@@ -19,7 +17,10 @@ export const SetionOne = () => {
         for better management.
       </div>
       <div className=" flex items-center justify-center">
-        <a href="/dashboard" className="btn w-max text-white md:btn-lg rounded-full btn-primary">
+        <a
+          href="/dashboard"
+          className="btn w-max text-white md:btn-lg rounded-full btn-primary"
+        >
           Sync now <ArrowRight />
         </a>
       </div>
